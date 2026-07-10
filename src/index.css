@@ -1,3 +1,14 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  --color-surface: var(--color-surface);
+  --color-bg-subtle: var(--color-bg-subtle);
+  --color-bg-light: var(--color-bg-light);
+}
+
 :root {
   --color-primary: #6b66c6;      /* The main brand/action color */
   --color-accent: #896deb;       /* A vibrant pop for active states/links */
@@ -23,7 +34,7 @@
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -36,30 +47,29 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #9b96f5;      /* More vibrant for dark mode contrast */
-    --color-accent: #b49eff;       /* Slightly lighter to pop on dark surfaces */
-    --color-surface: #2b2645;      /* Darker surface color for cards/borders */
-    --color-bg-subtle: #1c1830;    /* Dark subtle background shading */
-    --color-bg-light: #110e1e;     /* Deep dark background */
+.dark {
+  --color-primary: #9b96f5;      /* More vibrant for dark mode contrast */
+  --color-accent: #b49eff;       /* Slightly lighter to pop on dark surfaces */
+  --color-surface: #2b2645;      /* Darker surface color for cards/borders */
+  --color-bg-subtle: #1c1830;    /* Dark subtle background shading */
+  --color-bg-light: #110e1e;     /* Deep dark background */
 
-    --text: #b2abc2;
-    --text-h: #f1ecf9;
-    --bg: var(--color-bg-light);
-    --border: var(--color-surface);
-    --code-bg: var(--color-bg-subtle);
-    --accent: var(--color-accent);
-    --accent-bg: rgba(180, 158, 255, 0.15);
-    --accent-border: rgba(180, 158, 255, 0.5);
-    --social-bg: rgba(28, 24, 48, 0.6);
-    --shadow:
-      rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
-  }
+  --text: #b2abc2;
+  --text-h: #f1ecf9;
+  --bg: var(--color-bg-light);
+  --border: var(--color-surface);
+  --code-bg: var(--color-bg-subtle);
+  --accent: var(--color-accent);
+  --accent-bg: rgba(180, 158, 255, 0.15);
+  --accent-border: rgba(180, 158, 255, 0.5);
+  --social-bg: rgba(28, 24, 48, 0.6);
+  --shadow:
+    rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
+  color-scheme: dark;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+.dark #social .button-icon {
+  filter: invert(1) brightness(2);
 }
 
 #root {
