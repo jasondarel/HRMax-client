@@ -1,15 +1,21 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --color-primary: #6b66c6;      /* The main brand/action color */
+  --color-accent: #896deb;       /* A vibrant pop for active states/links */
+  --color-surface: #a796e8;      /* Good for cards, borders, or secondary elements */
+  --color-bg-subtle: #c2a3fd;    /* Light background shading */
+  --color-bg-light: #cdb5ff;     /* The lightest tint, perfect for page backgrounds */
+
+  --text: #2d264a;
+  --text-h: #171131;
+  --bg: var(--color-bg-light);
+  --border: var(--color-surface);
+  --code-bg: var(--color-bg-subtle);
+  --accent: var(--color-accent);
+  --accent-bg: rgba(137, 109, 235, 0.12);
+  --accent-border: rgba(137, 109, 235, 0.4);
+  --social-bg: rgba(255, 255, 255, 0.35);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(107, 102, 198, 0.15) 0 10px 15px -3px, rgba(107, 102, 198, 0.08) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -32,17 +38,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --color-primary: #9b96f5;      /* More vibrant for dark mode contrast */
+    --color-accent: #b49eff;       /* Slightly lighter to pop on dark surfaces */
+    --color-surface: #2b2645;      /* Darker surface color for cards/borders */
+    --color-bg-subtle: #1c1830;    /* Dark subtle background shading */
+    --color-bg-light: #110e1e;     /* Deep dark background */
+
+    --text: #b2abc2;
+    --text-h: #f1ecf9;
+    --bg: var(--color-bg-light);
+    --border: var(--color-surface);
+    --code-bg: var(--color-bg-subtle);
+    --accent: var(--color-accent);
+    --accent-bg: rgba(180, 158, 255, 0.15);
+    --accent-border: rgba(180, 158, 255, 0.5);
+    --social-bg: rgba(28, 24, 48, 0.6);
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
   }
 
   #social .button-icon {
