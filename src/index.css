@@ -7,6 +7,10 @@
   --color-surface: var(--color-surface);
   --color-bg-subtle: var(--color-bg-subtle);
   --color-bg-light: var(--color-bg-light);
+  --color-foreground: var(--text);
+  --color-heading: var(--text-h);
+  --color-background: var(--bg);
+  --color-border-subtle: var(--border);
 }
 
 :root {
