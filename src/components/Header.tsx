@@ -4,13 +4,13 @@ export function Header() {
   return (
     <header className="h-16 bg-surface dark:bg-bg-subtle border-b border-border-subtle flex items-center justify-between px-6 shrink-0">
       <div className="flex items-center">
-        <div className="flex items-center bg-background rounded-full px-4 py-1.5 w-64 border border-border-subtle focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+        <div className="flex items-center bg-white/70 dark:bg-bg-subtle rounded-full h-10 px-4 w-64 border border-border-subtle shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
           <Search className="h-4 w-4 text-foreground opacity-50 shrink-0" />
           <input 
             id="dashboard-search"
             type="text" 
             placeholder="Search..." 
-            className="bg-transparent border-none focus:outline-none text-sm w-full ml-2 text-foreground"
+            className="bg-transparent border-none focus:outline-none text-sm w-full ml-2 text-foreground placeholder:text-foreground/50"
           />
         </div>
       </div>
