@@ -7,8 +7,12 @@ import { Button } from '../components/Button';
 import { InputField } from '../components/InputField';
 import { PasswordField } from '../components/PasswordField';
 import { Building2, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
+import { useEffect } from 'react';
 
 function Login() {
+  useEffect(() => {
+    document.title = "Log In | HRMax";
+  }, []);
   const {
     register,
     handleSubmit,
