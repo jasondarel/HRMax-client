@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '../utils';
@@ -7,12 +7,14 @@ interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   labelRight?: ReactNode;
   icon?: ReactNode;
+  error?: string;
 }
 
-export function PasswordField({ label, labelRight, icon, id, className = '', ...props }: PasswordFieldProps) {
-  const [showPassword, setShowPassword] = useState(false);
+export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
+  ({ label, labelRight, icon, id, className = '', error, ...props }, ref) => {
+    const [showPassword, setShowPassword] = useState(false);
 
-  return (
+    return (
     <div className={cn("space-y-2", className)}>
       <div className="flex items-center justify-between">
         <label className="block text-sm font-semibold text-heading" htmlFor={id}>
@@ -28,11 +30,13 @@ export function PasswordField({ label, labelRight, icon, id, className = '', ...
         )}
         <input
           id={id}
+          ref={ref}
           type={showPassword ? 'text' : 'password'}
           className={cn(
             "block w-full rounded-xl border border-border-subtle bg-white/70 dark:bg-bg-subtle",
             icon ? 'pl-11' : 'pl-4',
-            "pr-12 py-3.5 text-heading transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20 shadow-sm"
+            "pr-12 py-3.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
+            error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
           )}
           {...props}
         />
@@ -49,6 +53,7 @@ export function PasswordField({ label, labelRight, icon, id, className = '', ...
           )}
         </button>
       </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
-}
+});

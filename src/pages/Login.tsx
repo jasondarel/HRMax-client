@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema, type LoginFormData } from '../validations/auth';
 import { StaggerContainer, StaggerItem, FadeInRight } from '../components/Animated';
 import { Button } from '../components/Button';
 import { InputField } from '../components/InputField';
@@ -6,6 +9,19 @@ import { PasswordField } from '../components/PasswordField';
 import { Building2, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log('Login form submitted:', data);
+    // TODO: implement login logic
+  };
+
   return (
     <div className="flex min-h-screen bg-background text-foreground text-left">
       {/* Left Form Section */}
@@ -25,26 +41,24 @@ function Login() {
           </StaggerItem>
 
           <StaggerItem>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
             <InputField
               id="email"
               type="email"
               label="Email"
               placeholder="name@company.com"
-              required
-              icon={
-                <AtSign />
-              }
+              icon={<AtSign />}
+              error={errors.email?.message}
+              {...register('email')}
             />
 
             <PasswordField
               id="password"
               label="Password"
               placeholder="••••••••"
-              required
-              icon={
-                <Lock />
-              }
+              icon={<Lock />}
+              error={errors.password?.message}
+              {...register('password')}
               labelRight={
                 <Link to="/forgot-password" className="text-sm font-medium text-primary hover:text-accent transition-colors">
                   Forgot password?
@@ -54,11 +68,12 @@ function Login() {
 
             <Button
               type="submit"
+              disabled={isSubmitting}
               icon={
                 <ArrowRight className="h-5 w-5" />
               }
             >
-              Sign In
+              {isSubmitting ? 'Signing in...' : 'Sign In'}
             </Button>
             </form>
           </StaggerItem>

@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signupSchema, type SignupFormData } from '../validations/auth';
 import { StaggerContainer, StaggerItem, FadeInRight } from '../components/Animated';
 import { Button } from '../components/Button';
 import { InputField } from '../components/InputField';
@@ -6,6 +9,19 @@ import { PasswordField } from '../components/PasswordField';
 import { Building2, User, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
 
 function Signup() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
+  });
+
+  const onSubmit = (data: SignupFormData) => {
+    console.log('Signup form submitted:', data);
+    // TODO: implement signup logic
+  };
+
   return (
     <div className="flex min-h-screen bg-background text-foreground text-left">
       {/* Left Form Section */}
@@ -25,16 +41,15 @@ function Signup() {
           </StaggerItem>
 
           <StaggerItem>
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
               <InputField
                 id="name"
                 type="text"
                 label="Full Name"
                 placeholder="John Doe"
-                required
-                icon={
-                  <User />
-                }
+                icon={<User />}
+                error={errors.name?.message}
+                {...register('name')}
               />
 
               <InputField
@@ -42,30 +57,29 @@ function Signup() {
                 type="email"
                 label="Email"
                 placeholder="name@company.com"
-                required
-                icon={
-                  <AtSign />
-                }
+                icon={<AtSign />}
+                error={errors.email?.message}
+                {...register('email')}
               />
 
               <PasswordField
                 id="password"
                 label="Password"
                 placeholder="••••••••"
-                required
-                icon={
-                  <Lock />
-                }
+                icon={<Lock />}
+                error={errors.password?.message}
+                {...register('password')}
               />
 
             <Button
               type="submit"
               className="mt-4"
+              disabled={isSubmitting}
               icon={
                 <ArrowRight className="h-5 w-5" />
               }
             >
-              Sign Up
+              {isSubmitting ? 'Signing up...' : 'Sign Up'}
             </Button>
             </form>
           </StaggerItem>

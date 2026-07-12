@@ -1,14 +1,17 @@
+import { forwardRef } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils';
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   icon?: ReactNode;
+  error?: string;
 }
 
-export function InputField({ label, icon, id, className = '', ...props }: InputFieldProps) {
-  return (
-    <div className={cn("space-y-2", className)}>
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+  ({ label, icon, id, className = '', error, ...props }, ref) => {
+    return (
+      <div className={cn("space-y-2", className)}>
       <label className="block text-sm font-semibold text-heading" htmlFor={id}>
         {label}
       </label>
@@ -20,14 +23,17 @@ export function InputField({ label, icon, id, className = '', ...props }: InputF
         )}
         <input
           id={id}
+          ref={ref}
           className={cn(
             "block w-full rounded-xl border border-border-subtle bg-white/70 dark:bg-bg-subtle",
             icon ? 'pl-11' : 'pl-4',
-            "pr-4 py-3.5 text-heading transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20 shadow-sm"
+            "pr-4 py-3.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
+            error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
           )}
           {...props}
         />
       </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
-}
+});
