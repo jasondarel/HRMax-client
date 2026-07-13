@@ -94,11 +94,11 @@ function Login() {
       </div>
 
       {/* Right Branding Section */}
-      <div className="relative hidden w-1/2 flex-col items-center justify-center bg-surface dark:bg-bg-subtle lg:flex overflow-hidden border-l border-border-subtle">
+      <div className="relative hidden w-1/2 flex-col items-center justify-center bg-background lg:flex overflow-hidden border-l border-border-subtle">
         {/* Animated Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-          <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[var(--color-primary)] opacity-20 blur-[100px] animate-pulse"></div>
-          <div className="absolute top-[40%] -right-[10%] w-[60%] h-[60%] rounded-full bg-[var(--color-accent)] opacity-20 blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] rounded-full bg-[var(--color-primary)] opacity-25 blur-[120px] animate-blob" style={{ animationDuration: '24s' }}></div>
+          <div className="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] rounded-full bg-[var(--color-accent)] opacity-25 blur-[120px] animate-blob" style={{ animationDuration: '28s', animationDelay: '2s' }}></div>
         </div>
 
         <FadeInRight className="relative z-10 w-full max-w-lg px-8 text-left">
