@@ -58,6 +58,9 @@ function Signup() {
                 icon={<User />}
                 error={errors.name?.message}
                 {...register('name')}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/[0-9]/g, '');
+                }}
               />
 
               <InputField
@@ -124,6 +127,9 @@ function Signup() {
                         errors.phone ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
                       )}
                       {...register('phone')}
+                      onInput={(e) => {
+                        e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                      }}
                     />
                   </div>
                 </div>
