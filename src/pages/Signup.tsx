@@ -27,7 +27,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground text-left">
+    <div className="flex min-h-screen bg-brand-bg text-foreground text-left">
       {/* Left Form Section */}
       <div className="flex w-full flex-col justify-center px-8 sm:px-12 md:px-16 lg:w-1/2 lg:px-24">
         <StaggerContainer className="mx-auto w-full max-w-md">
@@ -120,13 +120,13 @@ function Signup() {
 
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background shadow-sm border border-border-subtle">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-bg shadow-sm border border-border-subtle">
                 <Check className="h-5 w-5 text-primary" />
               </div>
               <p className="text-heading font-medium">Quick and easy onboarding</p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background shadow-sm border border-border-subtle">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-bg shadow-sm border border-border-subtle">
                 <Check className="h-5 w-5 text-primary" />
               </div>
               <p className="text-heading font-medium">Bank-grade security</p>

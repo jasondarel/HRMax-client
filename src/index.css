@@ -10,6 +10,7 @@
   --color-foreground: var(--text);
   --color-heading: var(--text-h);
   --color-background: var(--bg);
+  --color-brand-bg: var(--brand-bg);
   --color-border-subtle: var(--border);
 }
 
@@ -27,7 +28,8 @@
 
   --text: #2d264a;
   --text-h: #171131;
-  --bg: var(--color-bg-light);
+  --bg: #ffffff;
+  --brand-bg: var(--color-bg-light);
   --border: var(--color-surface);
   --code-bg: var(--color-bg-subtle);
   --accent: var(--color-accent);
@@ -70,7 +72,8 @@
 
   --text: #b2abc2;
   --text-h: #f1ecf9;
-  --bg: var(--color-bg-light);
+  --bg: #0f172a;
+  --brand-bg: var(--color-bg-light);
   --border: var(--color-surface);
   --code-bg: var(--color-bg-subtle);
   --accent: var(--color-accent);

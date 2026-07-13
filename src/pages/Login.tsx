@@ -27,7 +27,7 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground text-left">
+    <div className="flex min-h-screen bg-brand-bg text-foreground text-left">
       {/* Left Form Section */}
       <div className="flex w-full flex-col justify-center px-8 sm:px-12 md:px-16 lg:w-1/2 lg:px-24">
         <StaggerContainer className="mx-auto w-full max-w-md">
@@ -113,11 +113,11 @@ function Login() {
           </p>
           
           <div className="flex gap-4">
-            <div className="flex items-center gap-2 rounded-full bg-background px-5 py-2.5 text-sm font-medium shadow-sm border border-border-subtle">
+            <div className="flex items-center gap-2 rounded-full bg-brand-bg px-5 py-2.5 text-sm font-medium shadow-sm border border-border-subtle">
               <Check className="h-5 w-5 text-primary" />
               Smart Analytics
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-background px-5 py-2.5 text-sm font-medium shadow-sm border border-border-subtle">
+            <div className="flex items-center gap-2 rounded-full bg-brand-bg px-5 py-2.5 text-sm font-medium shadow-sm border border-border-subtle">
               <Check className="h-5 w-5 text-primary" />
               Automated Payroll
             </div>

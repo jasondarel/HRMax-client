@@ -18,14 +18,14 @@ export function Sidebar() {
 
   return (
     <aside className={cn(
-      "relative bg-background border-r border-border-subtle flex-col justify-between hidden md:flex shrink-0 transition-all duration-300",
+      "relative bg-brand-bg border-r border-border-subtle flex-col justify-between hidden md:flex shrink-0 transition-all duration-300",
       isSidebarOpen ? "w-64" : "w-20"
     )}>
       {/* Toggle Button */}
       <button 
         id="sidebar-toggle-btn"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="absolute -right-3.5 top-5 z-50 flex h-7 w-7 items-center justify-center rounded-full border border-border-subtle bg-background text-foreground shadow-sm hover:text-primary transition-colors cursor-pointer hidden md:flex"
+        className="absolute -right-3.5 top-5 z-50 flex h-7 w-7 items-center justify-center rounded-full bg-brand-bg text-foreground shadow-sm hover:text-primary transition-colors cursor-pointer hidden md:flex"
         title="Toggle Sidebar"
       >
         {isSidebarOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
