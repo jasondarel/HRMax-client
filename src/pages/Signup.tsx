@@ -8,6 +8,7 @@ import { InputField } from '../components/InputField';
 import { PasswordField } from '../components/PasswordField';
 import { Building2, User, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
 import { useEffect } from 'react';
+import { cn } from '../utils';
 
 function Signup() {
   useEffect(() => {
@@ -19,6 +20,9 @@ function Signup() {
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
+    defaultValues: {
+      countryCode: '+1',
+    }
   });
 
   const onSubmit = (data: SignupFormData) => {
@@ -30,9 +34,9 @@ function Signup() {
     <div className="flex min-h-screen bg-brand-bg text-foreground text-left">
       {/* Left Form Section */}
       <div className="flex w-full flex-col justify-center px-8 sm:px-12 md:px-16 lg:w-1/2 lg:px-24">
-        <StaggerContainer className="mx-auto w-full max-w-md">
-          <StaggerItem className="mb-10">
-            <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-lg">
+        <StaggerContainer className="mx-auto w-full max-w-md my-8">
+          <StaggerItem className="mb-4">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-lg">
               {/* Logo icon */}
               <Building2 className="h-6 w-6" />
             </div>
@@ -45,7 +49,7 @@ function Signup() {
           </StaggerItem>
 
           <StaggerItem>
-            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form className="space-y-3" onSubmit={handleSubmit(onSubmit)} noValidate>
               <InputField
                 id="name"
                 type="text"
@@ -66,14 +70,67 @@ function Signup() {
                 {...register('email')}
               />
 
-              <PasswordField
-                id="password"
-                label="Password"
-                placeholder="••••••••"
-                icon={<Lock />}
-                error={errors.password?.message}
-                {...register('password')}
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <PasswordField
+                  id="password"
+                  label="Password"
+                  placeholder="••••••••"
+                  icon={<Lock />}
+                  error={errors.password?.message}
+                  {...register('password')}
+                />
+
+                <PasswordField
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  placeholder="••••••••"
+                  icon={<Lock />}
+                  error={errors.confirmPassword?.message}
+                  {...register('confirmPassword')}
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-sm font-semibold text-heading" htmlFor="phone">
+                  Phone Number
+                </label>
+                <div className="flex gap-2">
+                  <div className="relative w-1/3 sm:w-1/4">
+                    <select
+                      id="countryCode"
+                      className={cn(
+                        "block w-full appearance-none rounded-xl border border-border-subtle bg-white/70 dark:bg-bg-subtle",
+                        "px-4 py-2.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
+                        errors.countryCode ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
+                      )}
+                      {...register('countryCode')}
+                    >
+                      <option value="+1">+1 (US/CA)</option>
+                      <option value="+44">+44 (UK)</option>
+                      <option value="+61">+61 (AU)</option>
+                      <option value="+91">+91 (IN)</option>
+                      <option value="+62">+62 (ID)</option>
+                    </select>
+                    {/* Optional custom dropdown indicator can go here if needed, but native select arrow is fine */}
+                  </div>
+                  <div className="relative flex-1">
+                    <input
+                      id="phone"
+                      type="tel"
+                      placeholder="Phone number"
+                      className={cn(
+                        "block w-full rounded-xl border border-border-subtle bg-white/70 dark:bg-bg-subtle",
+                        "px-4 py-2.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
+                        errors.phone ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
+                      )}
+                      {...register('phone')}
+                    />
+                  </div>
+                </div>
+                {(errors.countryCode || errors.phone) && (
+                  <p className="text-sm text-red-500">{errors.phone?.message || errors.countryCode?.message}</p>
+                )}
+              </div>
 
             <Button
               type="submit"
@@ -89,7 +146,7 @@ function Signup() {
           </StaggerItem>
 
           <StaggerItem>
-            <p className="mt-10 text-center text-sm text-foreground">
+            <p className="mt-6 text-center text-sm text-foreground">
               Already have an account?{' '}
               <Link to="/login" className="font-semibold text-primary hover:text-accent transition-colors">
                 Sign in

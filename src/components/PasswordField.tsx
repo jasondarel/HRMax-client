@@ -15,7 +15,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-1", className)}>
       <div className="flex items-center justify-between">
         <label className="block text-sm font-semibold text-heading" htmlFor={id}>
           {label}
@@ -35,7 +35,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           className={cn(
             "block w-full rounded-xl border border-border-subtle bg-white/70 dark:bg-bg-subtle",
             icon ? 'pl-11' : 'pl-4',
-            "pr-12 py-3.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
+            "pr-12 py-2.5 text-heading transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 shadow-sm",
             error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "focus:border-primary focus:ring-primary"
           )}
           {...props}

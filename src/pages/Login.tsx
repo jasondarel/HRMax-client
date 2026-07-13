@@ -30,9 +30,9 @@ function Login() {
     <div className="flex min-h-screen bg-brand-bg text-foreground text-left">
       {/* Left Form Section */}
       <div className="flex w-full flex-col justify-center px-8 sm:px-12 md:px-16 lg:w-1/2 lg:px-24">
-        <StaggerContainer className="mx-auto w-full max-w-md">
-          <StaggerItem className="mb-10">
-            <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-lg">
+        <StaggerContainer className="mx-auto w-full max-w-md my-8">
+          <StaggerItem className="mb-4">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-lg">
               {/* Logo icon */}
               <Building2 className="h-6 w-6" />
             </div>
@@ -45,7 +45,7 @@ function Login() {
           </StaggerItem>
 
           <StaggerItem>
-            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form className="space-y-3" onSubmit={handleSubmit(onSubmit)} noValidate>
             <InputField
               id="email"
               type="email"
@@ -83,7 +83,7 @@ function Login() {
           </StaggerItem>
 
           <StaggerItem>
-            <p className="mt-10 text-center text-sm text-foreground">
+            <p className="mt-6 text-center text-sm text-foreground">
             Don't have an account?{' '}
             <Link to="/signup" className="font-semibold text-primary hover:text-accent transition-colors">
               Create an account
