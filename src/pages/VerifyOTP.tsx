@@ -127,11 +127,10 @@ export default function VerifyOTP() {
 
               <Button
                 type="submit"
-                className="w-full text-base group"
                 disabled={isSubmitting}
+                icon={!isSubmitting ? <ArrowRight className="h-5 w-5" /> : undefined}
               >
                 {isSubmitting ? 'Verifying...' : 'Verify Account'}
-                {!isSubmitting && <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />}
               </Button>
             </form>
           </StaggerItem>
