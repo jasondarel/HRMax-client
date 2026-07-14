@@ -51,9 +51,13 @@ function Signup() {
           phoneNumber: data.phone,
         }
       });
-      navigate('/login');
-    } catch (err: any) {
-      setServerError(err.message || 'Registration failed');
+      navigate('/verify-otp');
+    } catch (err) {
+      if (err instanceof Error) {
+        setServerError(err.message || 'Registration failed');
+      } else {
+        setServerError('Registration failed');
+      }
     }
   };
 
