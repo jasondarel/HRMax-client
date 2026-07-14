@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema, type SignupFormData } from '../validations/auth';
@@ -7,12 +7,25 @@ import { Button } from '../components/Button';
 import { InputField } from '../components/InputField';
 import { PasswordField } from '../components/PasswordField';
 import { Building2, User, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '../utils';
+import { getCountries, registerUser } from '../services/api';
 
 function Signup() {
+  const navigate = useNavigate();
+  const [countries, setCountries] = useState<{name: string, iso_code: string, dial_code: string}[]>([]);
+  const [serverError, setServerError] = useState('');
   useEffect(() => {
     document.title = "Sign Up | HRMax";
+    const fetchCountries = async () => {
+      try {
+        const data = await getCountries();
+        setCountries(data);
+      } catch (err) {
+        console.error("Failed to load countries", err);
+      }
+    };
+    fetchCountries();
   }, []);
   const {
     register,
@@ -21,13 +34,27 @@ function Signup() {
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      countryCode: '+1',
+      countryCode: 'US',
     }
   });
 
-  const onSubmit = (data: SignupFormData) => {
-    console.log('Signup form submitted:', data);
-    // TODO: implement signup logic
+  const onSubmit = async (data: SignupFormData) => {
+    setServerError('');
+    try {
+      await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        phoneInformation: {
+          countryCode: data.countryCode,
+          phoneNumber: data.phone,
+        }
+      });
+      navigate('/login');
+    } catch (err: any) {
+      setServerError(err.message || 'Registration failed');
+    }
   };
 
   return (
@@ -49,6 +76,11 @@ function Signup() {
           </StaggerItem>
 
           <StaggerItem>
+            {serverError && (
+              <div className="mb-4 rounded-xl bg-red-50 p-4 text-sm text-red-500 border border-red-200">
+                {serverError}
+              </div>
+            )}
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)} noValidate>
               <InputField
                 id="name"
@@ -108,11 +140,12 @@ function Signup() {
                       )}
                       {...register('countryCode')}
                     >
-                      <option value="+1">+1 (US/CA)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+61">+61 (AU)</option>
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+62">+62 (ID)</option>
+                      <option value="">Code</option>
+                      {countries.map((country) => (
+                        <option key={country.iso_code} value={country.iso_code}>
+                          {country.dial_code} ({country.iso_code})
+                        </option>
+                      ))}
                     </select>
                     {/* Optional custom dropdown indicator can go here if needed, but native select arrow is fine */}
                   </div>
