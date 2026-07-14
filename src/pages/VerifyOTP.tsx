@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StaggerContainer, StaggerItem, FadeInRight } from '../components/Animated';
 import { Button } from '../components/Button';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { cn } from '../utils';
+import { verifyRegisterOTP } from '../services/api';
 
 export default function VerifyOTP() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,10 +17,14 @@ export default function VerifyOTP() {
 
   useEffect(() => {
     document.title = 'Verify OTP | HRMax';
+    if (!email) {
+      navigate('/signup');
+      return;
+    }
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
-  }, []);
+  }, [email, navigate]);
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
@@ -66,10 +73,15 @@ export default function VerifyOTP() {
     setIsSubmitting(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!email) throw new Error('Email is required');
+      await verifyRegisterOTP({ email, otpCode: code });
       navigate('/login');
-    } catch {
-      setError('Invalid verification code');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Invalid verification code');
+      } else {
+        setError('Invalid verification code');
+      }
     } finally {
       setIsSubmitting(false);
     }

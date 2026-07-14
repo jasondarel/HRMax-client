@@ -45,3 +45,26 @@ export const registerUser = async (payload: {
         throw error;
     }
 };
+
+export const verifyRegisterOTP = async (payload: { email: string; otpCode: string }) => {
+    try {
+        const response = await fetch(`${API_URL}/auth/verify/register-otp`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || `OTP verification failed: ${response.statusText}`);
+        }
+
+        return data;
+    } catch (error) {
+        console.error("Error verifying OTP:", error);
+        throw error;
+    }
+};

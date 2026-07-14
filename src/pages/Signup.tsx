@@ -51,7 +51,7 @@ function Signup() {
           phoneNumber: data.phone,
         }
       });
-      navigate('/verify-otp');
+      navigate('/verify-otp', { state: { email: data.email } });
     } catch (err) {
       if (err instanceof Error) {
         setServerError(err.message || 'Registration failed');
