@@ -74,8 +74,13 @@ export default function VerifyOTP() {
     
     try {
       if (!email) throw new Error('Email is required');
-      await verifyRegisterOTP({ email, otpCode: code });
-      navigate('/login');
+      const response = await verifyRegisterOTP({ email, otpCode: code });
+      
+      if (response.data?.role_id === 1) {
+        navigate('/dashboard');
+      } else {
+        navigate('/login');
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || 'Invalid verification code');
