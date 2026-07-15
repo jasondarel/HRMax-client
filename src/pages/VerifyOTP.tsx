@@ -76,8 +76,13 @@ export default function VerifyOTP() {
       if (!email) throw new Error('Email is required');
       const response = await verifyRegisterOTP({ email, otpCode: code });
       
-      if (response.data?.role_id === 1) {
-        navigate('/dashboard');
+      localStorage.setItem('user', JSON.stringify({ 
+        name: response.data.name, 
+        role: response.data.role 
+      }));
+
+      if (response.data?.role === 'TENANT ADMIN') {
+        navigate('/dashboard-admin');
       } else {
         navigate('/login');
       }

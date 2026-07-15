@@ -192,4 +192,10 @@
     padding: 4px 8px;
     background: var(--code-bg);
   }
+
+  /* Hide default browser eye icon in password fields */
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormData } from '../validations/auth';
@@ -7,9 +7,12 @@ import { Button } from '../components/Button';
 import { InputField } from '../components/InputField';
 import { PasswordField } from '../components/PasswordField';
 import { Building2, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { loginUser } from '../services/api';
 
 function Login() {
+  const navigate = useNavigate();
+  const [serverError, setServerError] = useState('');
   useEffect(() => {
     document.title = "Log In | HRMax";
   }, []);
@@ -21,9 +24,28 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log('Login form submitted:', data);
-    // TODO: implement login logic
+  const onSubmit = async (data: LoginFormData) => {
+    setServerError('');
+    try {
+      const response = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
+
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      if (response.data?.user?.role === 'TENANT ADMIN') {
+        navigate('/dashboard-admin');
+      } else {
+        navigate('/'); // Fallback for other roles or as determined by requirements
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setServerError(err.message || 'Login failed');
+      } else {
+        setServerError('Login failed');
+      }
+    }
   };
 
   return (
@@ -45,6 +67,11 @@ function Login() {
           </StaggerItem>
 
           <StaggerItem>
+            {serverError && (
+              <div className="mb-4 rounded-xl bg-red-50 p-4 text-sm text-red-500 border border-red-200">
+                {serverError}
+              </div>
+            )}
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)} noValidate>
             <InputField
               id="email"

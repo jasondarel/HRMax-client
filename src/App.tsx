@@ -5,6 +5,8 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import VerifyOTP from './pages/VerifyOTP';
 
+import { ProtectedRoute } from './components/ProtectedRoute';
+
 function App() {
   return (
     <Router>
@@ -13,7 +15,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute allowedRole="TENANT ADMIN" />}>
+          <Route path="/dashboard-admin" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );
