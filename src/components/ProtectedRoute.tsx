@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export function ProtectedRoute({ allowedRole }: { allowedRole?: string }) {
-  const userStr = localStorage.getItem('user');
+  const userStr = Cookies.get('user');
   const user = userStr ? JSON.parse(userStr) : null;
 
   if (!user) {

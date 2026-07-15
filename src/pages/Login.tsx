@@ -9,6 +9,7 @@ import { PasswordField } from '../components/PasswordField';
 import { Building2, AtSign, Lock, ArrowRight, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { loginUser } from '../services/api';
+import Cookies from 'js-cookie';
 
 function Login() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Login() {
         password: data.password,
       });
 
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      Cookies.set('user', JSON.stringify(response.data.user), { expires: 1 });
 
       if (response.data?.user?.role === 'TENANT ADMIN') {
         navigate('/dashboard-admin');

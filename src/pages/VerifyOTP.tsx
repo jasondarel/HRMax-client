@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { cn } from '../utils';
 import { verifyRegisterOTP } from '../services/api';
+import Cookies from 'js-cookie';
 
 export default function VerifyOTP() {
   const navigate = useNavigate();
@@ -76,10 +77,10 @@ export default function VerifyOTP() {
       if (!email) throw new Error('Email is required');
       const response = await verifyRegisterOTP({ email, otpCode: code });
       
-      localStorage.setItem('user', JSON.stringify({ 
+      Cookies.set('user', JSON.stringify({ 
         name: response.data.name, 
         role: response.data.role 
-      }));
+      }), { expires: 1 });
 
       if (response.data?.role === 'TENANT ADMIN') {
         navigate('/dashboard-admin');
