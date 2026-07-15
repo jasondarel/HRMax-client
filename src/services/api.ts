@@ -1,15 +1,23 @@
+import axios from 'axios';
+
 const API_URL = import.meta.env.VITE_API_URL;
+
+const apiClient = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
 export const getCountries = async () => {
     try {
-        const response = await fetch(`${API_URL}/master/countries`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch countries: ${response.statusText}`);
-        }
-        const data = await response.json();
-        return data.data.countries; // Matches the { data: { countries: [...] } } structure from backend response
+        const response = await apiClient.get('/master/countries');
+        return response.data.data.countries; // Matches the { data: { countries: [...] } } structure from backend response
     } catch (error) {
         console.error("Error fetching countries:", error);
+        if (axios.isAxiosError(error)) {
+            throw new Error(`Failed to fetch countries: ${error.response?.statusText || error.message}`);
+        }
         throw error;
     }
 };
@@ -25,69 +33,39 @@ export const registerUser = async (payload: {
     };
 }) => {
     try {
-        const response = await fetch(`${API_URL}/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || `Registration failed: ${response.statusText}`);
-        }
-
-        return data;
+        const response = await apiClient.post('/auth/register', payload);
+        return response.data;
     } catch (error) {
         console.error("Error registering user:", error);
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || `Registration failed: ${error.response?.statusText || error.message}`);
+        }
         throw error;
     }
 };
 
 export const verifyRegisterOTP = async (payload: { email: string; otpCode: string }) => {
     try {
-        const response = await fetch(`${API_URL}/auth/verify/register-otp`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || `OTP verification failed: ${response.statusText}`);
-        }
-
-        return data;
+        const response = await apiClient.post('/auth/verify/register-otp', payload);
+        return response.data;
     } catch (error) {
         console.error("Error verifying OTP:", error);
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || `OTP verification failed: ${error.response?.statusText || error.message}`);
+        }
         throw error;
     }
 };
 
 export const loginUser = async (payload: { email: string; password: string; }) => {
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || `Login failed: ${response.statusText}`);
-        }
-
-        return data;
+        const response = await apiClient.post('/auth/login', payload);
+        return response.data;
     } catch (error) {
         console.error("Error logging in user:", error);
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || `Login failed: ${error.response?.statusText || error.message}`);
+        }
         throw error;
     }
 };
